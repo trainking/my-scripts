@@ -46,9 +46,10 @@ def judge(pattern):
     for itemPath in auditPagePathList:
         reader = open(itemPath)
         line = reader.readline()
-        while line != None and line != '':
-            matchResult = pattern.match(line)
-            if matchResult != None:
+        while not line is None and not line is '':
+            matchResult = pattern.findall(line)    # 使用findall可以匹配，match存在匹配不了的问题
+            if not matchResult == []:
+                print matchResult
                 print itemPath
                 reader.close()
                 break
