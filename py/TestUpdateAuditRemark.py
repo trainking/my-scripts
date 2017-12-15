@@ -1,4 +1,5 @@
 # coding: utf-8
+# use python 2.7
 
 # 检查一个项目中的所有的审核页面的“audit_remark”字段必输选项
 # 有两套路径下存在审核页面：

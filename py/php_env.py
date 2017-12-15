@@ -1,4 +1,5 @@
 #!/usr/bin/python
+#use python 2.7
 
 import commands
 import sys 
