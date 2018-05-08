@@ -1,0 +1,2 @@
+# 批量删除进程命令
+ps -ef|grep [过滤条件]|cut -c 9-15|xargs kill -9
