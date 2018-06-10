@@ -1,0 +1,2 @@
+# 批量操作docker容器
+docker [start|stop|restart] $(docker container ls -q)
