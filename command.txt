@@ -3,3 +3,6 @@ ps -ef|grep [过滤条件]|cut -c 9-15|xargs kill -9
 
 # git关闭ssl验证
 git config --global http.sslVerify false 
+
+# 同步系统时间
+ntdate 1.cn.pool.ntp.org
