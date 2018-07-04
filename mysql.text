@@ -1,0 +1,10 @@
+# 查看连接等待时间
+SHOW GLOBAL VARIABLES LIKE 'wait_timeout';
+SHOW GLOBAL VARIABLES LIKE 'interactive_timeout';
+# 设置连接等待时间
+set global wait_timeout=30;
+SET GLOBAL interactive_timeout=30;
+# 查看所有连接
+show full PROCESSLIST;
+# 查看连接统计
+show status like 'Threads%';
