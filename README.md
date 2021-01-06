@@ -23,6 +23,7 @@
 * `./py/BlackHat/` 仿netcat实现
 * `./py/php_env.py` 同步执行nginx重启和phpfpm
 * `./py/TestUpdateAuditRemark.py` 检查一个项目中的所有的审核页面的“audit_remark”字段是必选项
+* `./py/dos2unix.py` 将文本换行符从CRLF转换成LF的脚本
 
 ### 2.2 Docker
 
