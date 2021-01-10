@@ -9,9 +9,8 @@ import queue
 import time
 
 MAX_THREADS = 4
-QUEUE_BUFFER = 10
 
-workQueue = queue.Queue(QUEUE_BUFFER) # 数据队列
+workQueue = queue.Queue() # 数据队列
 queueLock = threading.Lock() # 锁
 
 threads = [] # 线程集合
@@ -30,11 +29,16 @@ class SimpleThread(threading.Thread):
     def run(self):
         while True:
             queueLock.acquire()
-            if not workQueue.empty():
+            if not self.q.empty():
                 filename = self.q.get()
+                if os.path.isdir(filename):
+                    _list_f = os.listdir(filename)
+                    for i in _list_f:
+                        self.q.put(filename + os.path.sep + i)
                 queueLock.release()
-                print ("%d:%s -- run -- %s" % (self.threadID, self.name, filename))
-                dos2unix(filename)
+                if os.path.isfile(filename):
+                    print ("%d:%s -- run -- %s" % (self.threadID, self.name, filename))
+                    dos2unix(filename)
             else:
                 queueLock.release()
                 break
@@ -75,6 +79,10 @@ def main():
         thread = SimpleThread(i, "thread-"+str(i), workQueue)
         thread.start()
         threads.append(thread)
+
+    # 保证每个队列不是空开始
+    while not workQueue.empty():
+        pass
 
     for t in threads:
         t.join()
