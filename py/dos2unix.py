@@ -7,6 +7,10 @@ import sys
 import threading
 import queue
 import time
+from rich.console import Console
+
+# Rich Console
+console = Console()
 
 MAX_THREADS = 4
 
@@ -37,7 +41,7 @@ class SimpleThread(threading.Thread):
                         self.q.put(filename + os.path.sep + i)
                 queueLock.release()
                 if os.path.isfile(filename):
-                    print ("%d:%s -- run -- %s" % (self.threadID, self.name, filename))
+                    console.print("%d:%s -- run -- %s" % (self.threadID, self.name, filename))
                     dos2unix(filename)
             else:
                 queueLock.release()
@@ -63,12 +67,25 @@ def main():
     Usage:
         python dos2uinx.py a.txt b.txt c.txt
     '''
+    args = []
     script_name = os.path.basename(__file__)
-    args = sys.argv[1:]
-    if script_name in args[0]:
-        args = args[1:]
+    if len(sys.argv) > 0 and script_name in sys.argv[0]:
+        args = sys.argv[1:]
 
-    print("strat!")
+    if len(args) == 0:
+        console.print("")
+        console.print("====This's a CRLF to LF Script====", style="bold red")
+        console.print("")
+        console.print("Author: trainking.github.com")
+        console.print("Usage:")
+        console.print(":point_right:"," - dos2uinx.py [bold magenta]a.txt [bold magenta]b.txt [bold magenta]c.txt")
+        console.print(":point_right:", " - dos2uinx.py ./sr/ ...")
+        console.print("")
+        console.print("may the force be with you!", ":bride_with_veil:")
+        console.print("")
+        return
+
+    console.print("Start...")
     
     queueLock.acquire()
     for x in args:
@@ -86,7 +103,7 @@ def main():
 
     for t in threads:
         t.join()
-    print("end!")
+    console.print("End!")
 
 if __name__ == "__main__":
     main()
